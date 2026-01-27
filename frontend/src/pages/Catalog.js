@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Tabs, Button, Typography, Spin, Empty } from 'antd';
+import {DownloadOutlined} from "@ant-design/icons";
 const { Title, Paragraph } = Typography;
 const { TabPane } = Tabs;
 
@@ -74,7 +75,7 @@ const Catalog = () => {
             <Card className="product-card" hoverable>
               <div className="product-name">{product.name}</div>
               <div className="product-weight">{product.weight_packaging}</div>
-              <div className="product-price">{product.price.toLocaleString()} ₸</div>
+              <div className="product-price">{product.price.toLocaleString()} ₴</div>
             </Card>
           </Col>
         ))}
