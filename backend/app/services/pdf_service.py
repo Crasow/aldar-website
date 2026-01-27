@@ -41,7 +41,7 @@ def generate_price_list(db: Session, category_id: int = None) -> bytes:
             data = [
                 ["Наименование:", product.name],
                 ["Фасовка:", product.weight_packaging],
-                ["Цена:", f"{product.price:.2f} ₸"],
+                ["Цена:", f"{product.price:.2f} ₴"],
             ]
 
             table = Table(data, colWidths=[2 * inch, 4 * inch])
