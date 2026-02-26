@@ -1,17 +1,47 @@
+import os
+
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib import colors
 from reportlab.lib.units import inch
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from io import BytesIO
 from sqlalchemy.orm import Session
 from app.models.database import Product, Category
+
+
+def _register_cyrillic_font() -> str:
+    """Register a TrueType font with Cyrillic support and return its name.
+
+    Falls back to default Helvetica if a known font file is not found.
+    """
+    font_candidates = [
+        ("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "DejaVuSans"),
+        ("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", "LiberationSans"),
+    ]
+
+    for path, name in font_candidates:
+        if os.path.exists(path):
+            if name not in pdfmetrics.getRegisteredFontNames():
+                pdfmetrics.registerFont(TTFont(name, path))
+            return name
+
+    # Fallback – will not render Cyrillic perfectly, but keeps PDF working
+    return "Helvetica"
 
 
 def generate_price_list(db: Session, category_id: int = None) -> bytes:
     buffer = BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=letter)
     styles = getSampleStyleSheet()
+
+    font_name = _register_cyrillic_font()
+    for style_key in ("Normal", "Title", "Heading2"):
+        if style_key in styles:
+            styles[style_key].fontName = font_name
+
     story = []
 
     title = Paragraph("ALDAR ZS — Прайс-лист", styles["Title"])
@@ -51,7 +81,7 @@ def generate_price_list(db: Session, category_id: int = None) -> bytes:
                         ("BACKGROUND", (0, 0), (-1, -1), colors.whitesmoke),
                         ("GRID", (0, 0), (-1, -1), 1, colors.black),
                         ("PADDING", (0, 0), (-1, -1), 6),
-                        ("FONTNAME", (0, 0), (0, -1), "Helvetica-Bold"),
+                        ("FONTNAME", (0, 0), (-1, -1), font_name),
                     ]
                 )
             )
