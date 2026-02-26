@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const VACANCIES_URL = '/api/vacancies';
+const VACANCIES_URL = '/api/vacancies/';
 const APPLICATIONS_URL = '/api/applications';
 
 const getVacancies = () => {
