@@ -7,6 +7,8 @@ module.exports = function (app) {
     createProxyMiddleware({
       target,
       changeOrigin: true,
+      selfHandleResponse: false,
+      decompress: false,
     })
   );
 };

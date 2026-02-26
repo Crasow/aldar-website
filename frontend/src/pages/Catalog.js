@@ -35,27 +35,16 @@ const Catalog = () => {
     }
   };
 
-  const downloadPriceList = async (categoryId = null) => {
-    try {
-      const url = categoryId 
-        ? `${API_BASE}/api/price-list/download?category_id=${categoryId}`
-        : `${API_BASE}/api/price-list/download`;
-      
-      const response = await fetch(url);
-      if (response.ok) {
-        const blob = await response.blob();
-        const downloadUrl = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = downloadUrl;
-        a.download = 'price_list.pdf';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(downloadUrl);
-      }
-    } catch (error) {
-      console.error('Error downloading price list:', error);
-    }
+  const downloadPriceList = (categoryId = null) => {
+    const url = categoryId
+      ? `${API_BASE}/api/price-list/download?category_id=${categoryId}`
+      : `${API_BASE}/api/price-list/download`;
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'price_list.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   const getProductsByCategory = (categoryId) => {
