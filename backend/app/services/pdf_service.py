@@ -13,22 +13,21 @@ from app.models.database import Product, Category
 
 
 def _register_cyrillic_font() -> str:
-    """Register a TrueType font with Cyrillic support and return its name.
-
-    Falls back to default Helvetica if a known font file is not found.
-    """
+    """Register a TrueType font with Cyrillic support and return its name."""
+    _here = os.path.dirname(__file__)
     font_candidates = [
+        (os.path.join(_here, "..", "fonts", "DejaVuSans.ttf"), "DejaVuSans"),
         ("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "DejaVuSans"),
         ("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", "LiberationSans"),
     ]
 
     for path, name in font_candidates:
+        path = os.path.normpath(path)
         if os.path.exists(path):
             if name not in pdfmetrics.getRegisteredFontNames():
                 pdfmetrics.registerFont(TTFont(name, path))
             return name
 
-    # Fallback – will not render Cyrillic perfectly, but keeps PDF working
     return "Helvetica"
 
 
