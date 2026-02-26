@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-ALDAR ZS — a product catalog and HR portal website for a meat processing company. Monorepo with a **Python FastAPI backend** and a **React (CRA) frontend**, connected via REST API. Bilingual support (Russian/Kazakh) via dual-language model fields (`name`/`name_kz`, etc.).
+ALDAR ZS — a product catalog and HR portal website for a meat processing company. Monorepo with a **Python FastAPI backend** and a **React (CRA) frontend**, connected via REST API. The application now targets a single Ukrainian-language audience and uses standard single-language model fields (`name`, etc.).
 
 ## Commands
 

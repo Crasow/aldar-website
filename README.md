@@ -115,17 +115,17 @@ npm start
 ## Структура данных
 
 ### Product
-- id, name, name_kz, weight_packaging, price
+- id, name, weight_packaging, price
 - category_id (ForeignKey), is_active
 - created_at, updated_at
 
 ### Category
-- id, name, name_kz, description, is_active
+- id, name, description, is_active
 - created_at
 
 ### Vacancy
-- id, job_title, job_title_kz, description, description_kz
-- requirements, requirements_kz, salary, is_active
+- id, job_title, description
+- requirements, salary, is_active
 - created_at, updated_at
 
 ### VacancyApplication
@@ -134,11 +134,11 @@ npm start
 
 ## Особенности
 
-- **Двуязычность**: Поддержка укр и англ языков
-- **PDF экспорт**: Автоматическая генерация прайс-листов
-- **Валидация**: Клиентская и серверная валидация форм
-- **Адаптивность**: Оптимизация для мобильных устройств
-- **SEO**: Оптимизация для поисковых систем
+- **Украинский интерфейс**: Вся информация и контент представлены на украинском языке
+- **PDF експорт**: Автоматична генерація прайс-листів
+- **Валідація**: Клієнтська та серверна валідація форм
+- **Адаптивність**: Оптимізація для мобільних пристроїв
+- **SEO**: Оптимізація для пошукових систем
 
 ## Лицензия
 
