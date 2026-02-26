@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.exc import IntegrityError, OperationalError
 from sqlalchemy.orm import Session
 from typing import List
 from app.models.database import get_db, Category
@@ -21,8 +22,21 @@ async def get_categories(db: Session = Depends(get_db)):
 async def create_category(category: CategoryCreate, db: Session = Depends(get_db)):
     db_category = Category(**category.model_dump())
     db.add(db_category)
-    db.commit()
-    db.refresh(db_category)
+    try:
+        db.commit()
+        db.refresh(db_category)
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(
+            status_code=400,
+            detail="Category with this name or name_kz already exists",
+        )
+    except OperationalError as e:
+        db.rollback()
+        raise HTTPException(
+            status_code=503,
+            detail="Database write failed; check permissions or lock",
+        ) from e
     return db_category
 
 
@@ -45,8 +59,21 @@ async def update_category(
     for key, value in category.model_dump().items():
         setattr(db_category, key, value)
 
-    db.commit()
-    db.refresh(db_category)
+    try:
+        db.commit()
+        db.refresh(db_category)
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(
+            status_code=400,
+            detail="Category with this name or name_kz already exists",
+        )
+    except OperationalError as e:
+        db.rollback()
+        raise HTTPException(
+            status_code=503,
+            detail="Database write failed; check permissions or lock",
+        ) from e
     return db_category
 
 
@@ -57,5 +84,11 @@ async def delete_category(category_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Category not found")
 
     db_category.is_active = False
-    db.commit()
+    try:
+        db.commit()
+    except (IntegrityError, OperationalError) as e:
+        db.rollback()
+        raise HTTPException(
+            status_code=500, detail="Failed to update category"
+        ) from e
     return {"message": "Category deleted successfully"}
