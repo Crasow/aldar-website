@@ -1,18 +1,19 @@
 import axios from 'axios';
 
-const API_URL = '/api/vacancies';
+const VACANCIES_URL = '/api/vacancies';
+const APPLICATIONS_URL = '/api/applications';
 
 const getVacancies = () => {
-    return axios.get(API_URL);
+  return axios.get(VACANCIES_URL);
 };
 
 const applyForVacancy = (application) => {
-    return axios.post(`${API_URL}/apply`, application);
+  return axios.post(APPLICATIONS_URL, application);
 };
 
 const vacancyService = {
-    getVacancies,
-    applyForVacancy,
+  getVacancies,
+  applyForVacancy,
 };
 
 export default vacancyService;
