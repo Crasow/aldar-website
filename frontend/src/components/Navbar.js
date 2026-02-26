@@ -12,22 +12,22 @@ const Navbar = () => {
     {
       key: '/',
       icon: <HomeOutlined />,
-      label: <Link to="/">Главная</Link>,
+      label: <Link to="/">Головна</Link>,
     },
     {
       key: '/catalog',
       icon: <ShoppingOutlined />,
-      label: <Link to="/catalog">Продукция</Link>,
+      label: <Link to="/catalog">Продукція</Link>,
     },
     {
       key: '/vacancies',
       icon: <TeamOutlined />,
-      label: <Link to="/vacancies">Вакансии</Link>,
+      label: <Link to="/vacancies">Вакансії</Link>,
     },
     {
       key: '/contacts',
       icon: <PhoneOutlined />,
-      label: <Link to="/contacts">Контакты</Link>,
+      label: <Link to="/contacts">Контакти</Link>,
     },
   ];
 

@@ -29,7 +29,7 @@ async def create_category(category: CategoryCreate, db: Session = Depends(get_db
         db.rollback()
         raise HTTPException(
             status_code=400,
-            detail="Category with this name or name_kz already exists",
+            detail="Category with this name already exists",
         )
     except OperationalError as e:
         db.rollback()
@@ -66,7 +66,7 @@ async def update_category(
         db.rollback()
         raise HTTPException(
             status_code=400,
-            detail="Category with this name or name_kz already exists",
+            detail="Category with this name already exists",
         )
     except OperationalError as e:
         db.rollback()

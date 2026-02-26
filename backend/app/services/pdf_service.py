@@ -14,7 +14,7 @@ def generate_price_list(db: Session, category_id: int = None) -> bytes:
     styles = getSampleStyleSheet()
     story = []
 
-    title = Paragraph("ALDAR ZS - Прайс-лист", styles["Title"])
+    title = Paragraph("ALDAR ZS — Прайс-лист", styles["Title"])
     story.append(title)
     story.append(Spacer(1, 12))
 
@@ -25,7 +25,7 @@ def generate_price_list(db: Session, category_id: int = None) -> bytes:
     products = query.all()
 
     if not products:
-        no_products = Paragraph("Товары не найдены", styles["Normal"])
+        no_products = Paragraph("Товари не знайдені", styles["Normal"])
         story.append(no_products)
     else:
         current_category = None
@@ -39,9 +39,9 @@ def generate_price_list(db: Session, category_id: int = None) -> bytes:
                 story.append(Spacer(1, 6))
 
             data = [
-                ["Наименование:", product.name],
-                ["Фасовка:", product.weight_packaging],
-                ["Цена:", f"{product.price:.2f} ₸"],
+                ["Найменування:", product.name],
+                ["Фасування:", product.weight_packaging],
+                ["Ціна:", f"{product.price:.2f} ₴"],
             ]
 
             table = Table(data, colWidths=[2 * inch, 4 * inch])

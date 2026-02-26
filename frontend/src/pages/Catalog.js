@@ -4,6 +4,8 @@ import { DownloadOutlined } from '@ant-design/icons';
 const { Title, Paragraph } = Typography;
 const { TabPane } = Tabs;
 
+const API_BASE = process.env.REACT_APP_API_URL || '';
+
 const Catalog = () => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
@@ -17,8 +19,8 @@ const Catalog = () => {
   const fetchData = async () => {
     try {
       const [categoriesResponse, productsResponse] = await Promise.all([
-        fetch('/api/categories'),
-        fetch('/api/products')
+        fetch(`${API_BASE}/api/categories`),
+        fetch(`${API_BASE}/api/products`)
       ]);
 
       const categoriesData = await categoriesResponse.json();
@@ -36,8 +38,8 @@ const Catalog = () => {
   const downloadPriceList = async (categoryId = null) => {
     try {
       const url = categoryId 
-        ? `/api/price-list/download?category_id=${categoryId}`
-        : '/api/price-list/download';
+        ? `${API_BASE}/api/price-list/download?category_id=${categoryId}`
+        : `${API_BASE}/api/price-list/download`;
       
       const response = await fetch(url);
       if (response.ok) {
@@ -65,7 +67,7 @@ const Catalog = () => {
     const filteredProducts = getProductsByCategory(categoryId);
     
     if (filteredProducts.length === 0) {
-      return <Empty description="Товары не найдены" />;
+      return <Empty description="Товари не знайдені" />;
     }
 
     return (
@@ -75,7 +77,7 @@ const Catalog = () => {
             <Card className="product-card" hoverable>
               <div className="product-name">{product.name}</div>
               <div className="product-weight">{product.weight_packaging}</div>
-              <div className="product-price">{product.price.toLocaleString()} ₸</div>
+              <div className="product-price">{product.price.toLocaleString()} ₴</div>
             </Card>
           </Col>
         ))}
@@ -96,10 +98,10 @@ const Catalog = () => {
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <Title level={2} style={{ color: '#2c3e50' }}>
-            Продукция
+            Продукція
           </Title>
           <Paragraph style={{ fontSize: '1.1rem', color: '#7f8c8d', marginBottom: '30px' }}>
-            Качественная продукция от производителя
+            Якісна продукція від виробника
           </Paragraph>
           <Button
             type="primary"
@@ -108,12 +110,12 @@ const Catalog = () => {
             onClick={() => downloadPriceList()}
             className="download-button"
           >
-            Скачать полный прайс-лист
+            Завантажити повний прайс-лист
           </Button>
         </div>
 
         <Tabs activeKey={activeTab} onChange={setActiveTab} type="card" size="large">
-          <TabPane tab="Все товары" key="all">
+          <TabPane tab="Усі товари" key="all">
             {renderProducts('all')}
           </TabPane>
           {categories.map((category) => (
@@ -124,7 +126,7 @@ const Catalog = () => {
                   icon={<DownloadOutlined />}
                   onClick={() => downloadPriceList(category.id)}
                 >
-                  Скачать прайс-лист категории
+                  Завантажити прайс-лист категорії
                 </Button>
               </div>
               {renderProducts(category.id)}

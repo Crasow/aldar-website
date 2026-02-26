@@ -8,26 +8,26 @@ const Contacts = () => {
   const contactInfo = [
     {
       icon: <EnvironmentOutlined style={{ fontSize: '2rem', color: '#e74c3c' }} />,
-      title: 'Адрес производства',
-      content: 'г. Алматы, ул. Промышленная, 15',
+      title: 'Адреса виробництва',
+      content: 'м. Київ, вул. Промислова, 15',
     },
     {
       icon: <PhoneOutlined style={{ fontSize: '2rem', color: '#e74c3c' }} />,
       title: 'Телефон',
-      content: '+7 (727) 123-45-67',
-      action: 'tel:+77271234567',
+      content: '+38 (044) 123-45-67',
+      action: 'tel:+380441234567',
     },
     {
       icon: <MailOutlined style={{ fontSize: '2rem', color: '#e74c3c' }} />,
       title: 'Email',
-      content: 'info@aldar-zs.kz',
-      action: 'mailto:info@aldar-zs.kz',
+      content: 'info@aldar-zs.ua',
+      action: 'mailto:info@aldar-zs.ua',
     },
     {
       icon: <GlobalOutlined style={{ fontSize: '2rem', color: '#e74c3c' }} />,
       title: 'Сайт',
-      content: 'www.aldar-zs.kz',
-      action: 'https://www.aldar-zs.kz',
+      content: 'www.aldar-zs.ua',
+      action: 'https://www.aldar-zs.ua',
     },
   ];
 
@@ -40,22 +40,22 @@ const Contacts = () => {
     },
     {
       name: 'WhatsApp',
-      username: '+7 777 123-45-67',
+      username: '+38 067 123-45-67',
       icon: '📱',
       color: '#25d366',
     },
     {
       name: 'Viber',
-      username: '+7 777 123-45-67',
+      username: '+38 067 123-45-67',
       icon: '💬',
       color: '#7360f2',
     },
   ];
 
   const workHours = [
-    { day: 'Понедельник - Пятница', hours: '08:00 - 18:00' },
-    { day: 'Суббота', hours: '09:00 - 15:00' },
-    { day: 'Воскресенье', hours: 'Выходной' },
+    { day: 'Понеділок - Пʼятниця', hours: '08:00 - 18:00' },
+    { day: 'Субота', hours: '09:00 - 15:00' },
+    { day: 'Неділя', hours: 'Вихідний' },
   ];
 
   return (
@@ -63,16 +63,16 @@ const Contacts = () => {
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
           <Title level={2} style={{ color: '#2c3e50' }}>
-            Контакты
+            Контакти
           </Title>
           <Paragraph style={{ fontSize: '1.1rem', color: '#7f8c8d' }}>
-            Свяжитесь с нами удобным для вас способом
+            Звʼяжіться з нами зручним для вас способом
           </Paragraph>
         </div>
 
         <Row gutter={[24, 24]}>
           <Col xs={24} lg={12}>
-            <Card title="Основная информация" style={{ height: '100%' }}>
+            <Card title="Основна інформація" style={{ height: '100%' }}>
               <div className="contact-info">
                 {contactInfo.map((item, index) => (
                   <div key={index} className="contact-item">
@@ -103,7 +103,7 @@ const Contacts = () => {
           <Col xs={24} lg={12}>
             <Row gutter={[16, 16]}>
               <Col xs={24}>
-                <Card title="Мессенджеры">
+                <Card title="Месенджери">
                   {messengers.map((messenger, index) => (
                     <div key={index} style={{ 
                       marginBottom: '15px', 
@@ -141,7 +141,7 @@ const Contacts = () => {
               </Col>
 
               <Col xs={24}>
-                <Card title="Время работы">
+                <Card title="Графік роботи">
                   {workHours.map((schedule, index) => (
                     <div key={index} style={{ 
                       display: 'flex', 
@@ -151,7 +151,7 @@ const Contacts = () => {
                     }}>
                       <span style={{ color: '#2c3e50' }}>{schedule.day}</span>
                       <span style={{ 
-                        color: schedule.hours === 'Выходной' ? '#e74c3c' : '#27ae60',
+                        color: schedule.hours === 'Вихідний' ? '#e74c3c' : '#27ae60',
                         fontWeight: 'bold'
                       }}>
                         {schedule.hours}
@@ -166,7 +166,7 @@ const Contacts = () => {
 
         <Row style={{ marginTop: '40px' }}>
           <Col span={24}>
-            <Card title="Как нас найти">
+            <Card title="Як нас знайти">
               <div style={{ 
                 height: '400px', 
                 backgroundColor: '#f5f5f5', 
@@ -178,9 +178,9 @@ const Contacts = () => {
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <EnvironmentOutlined style={{ fontSize: '3rem', marginBottom: '10px' }} />
-                  <div>Интерактивная карта</div>
+                  <div>Інтерактивна карта</div>
                   <div style={{ fontSize: '0.9rem', marginTop: '5px' }}>
-                    Здесь будет отображена карта с местоположением производства
+                    Тут буде відображено карту з місцезнаходженням виробництва
                   </div>
                 </div>
               </div>

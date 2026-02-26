@@ -10,10 +10,10 @@ const CustomFooter = () => {
         <Col span={24}>
           <div style={{ textAlign: 'center' }}>
             <p style={{ margin: 0, fontSize: '1.1rem' }}>
-              © 2024 ALDAR ZS. Все права защищены.
+              © 2024 ALDAR ZS. Усі права захищені.
             </p>
             <p style={{ margin: '10px 0 0 0', color: '#bdc3c7' }}>
-              Мясокомбинат высокого качества
+              Мʼясокомбінат високої якості
             </p>
           </div>
         </Col>

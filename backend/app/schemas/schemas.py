@@ -5,7 +5,6 @@ from datetime import datetime
 
 class CategoryBase(BaseModel):
     name: str
-    name_kz: str
     description: Optional[str] = None
     is_active: bool = True
 
@@ -27,7 +26,6 @@ class Category(CategoryBase):
 
 class ProductBase(BaseModel):
     name: str
-    name_kz: str
     weight_packaging: str
     price: float
     category_id: int
@@ -53,11 +51,8 @@ class Product(ProductBase):
 
 class VacancyBase(BaseModel):
     job_title: str
-    job_title_kz: str
     description: str
-    description_kz: str
     requirements: str
-    requirements_kz: str
     salary: str
     is_active: bool = True
 

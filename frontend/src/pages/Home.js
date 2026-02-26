@@ -9,41 +9,41 @@ const Home = () => {
   const advantages = [
     {
       icon: <SafetyCertificateOutlined className="advantage-icon" />,
-      title: 'Собственное производство',
-      description: 'Полный контроль качества на всех этапах производства от сырья до готовой продукции',
+      title: 'Власне виробництво',
+      description: 'Повний контроль якості на всіх етапах виробництва — від сировини до готової продукції',
     },
     {
       icon: <TruckOutlined className="advantage-icon" />,
       title: 'Доставка',
-      description: 'Оперативная доставка по всему городу и области собственным транспортом',
+      description: 'Оперативна доставка по всій території України власним транспортом',
     },
     {
       icon: <CheckCircleOutlined className="advantage-icon" />,
-      title: 'Эко-контроль',
-      description: 'Сертифицированная продукция соответствующая международным стандартам качества',
+      title: 'Еко-контроль',
+      description: 'Сертифікована продукція, що відповідає міжнародним стандартам якості',
     },
   ];
 
   const categories = [
     {
       icon: '🧀',
-      title: 'Сыры',
-      description: 'Широкий ассортимент сыров',
+      title: 'Сири',
+      description: 'Широкий асортимент сирів',
     },
     {
       icon: '🍗',
       title: 'Курятина',
-      description: 'Качественная куриная продукция',
+      description: 'Якісна куряча продукція',
     },
     {
       icon: '🥩',
       title: 'Свинина',
-      description: 'Отборная свинина высшего сорта',
+      description: 'Відбірна свинина найвищого ґатунку',
     },
     {
       icon: '🍖',
-      title: 'Полуфабрикаты',
-      description: 'Готовые полуфабрикаты',
+      title: 'Напівфабрикати',
+      description: 'Готові напівфабрикати',
     },
   ];
 
@@ -52,14 +52,14 @@ const Home = () => {
       <section className="hero-section">
         <div className="container">
           <Title className="hero-title" level={1}>
-            ALDAR ZS - Качество проверенное временем
+            ALDAR ZS — якість, перевірена часом
           </Title>
           <Paragraph className="hero-subtitle">
-            Производим высококачественные мясные продукты и молочные изделия с 2010 года
+            Виробляємо високоякісні мʼясні продукти та молочні вироби з 2010 року
           </Paragraph>
           <Button type="primary" size="large" className="download-button">
             <Link to="/catalog">
-              <ShoppingCartOutlined /> Смотреть продукцию
+              <ShoppingCartOutlined /> Переглянути продукцію
             </Link>
           </Button>
         </div>
@@ -68,7 +68,7 @@ const Home = () => {
       <section className="advantages-section">
         <div className="container">
           <Title level={2} style={{ textAlign: 'center', marginBottom: '60px', color: '#2c3e50' }}>
-            Наши преимущества
+            Наші переваги
           </Title>
           <Row gutter={[32, 32]}>
             {advantages.map((advantage, index) => (
@@ -91,7 +91,7 @@ const Home = () => {
       <section style={{ padding: '80px 0', backgroundColor: '#f8f9fa' }}>
         <div className="container">
           <Title level={2} style={{ textAlign: 'center', marginBottom: '60px', color: '#2c3e50' }}>
-            Категории продукции
+            Категорії продукції
           </Title>
           <Row gutter={[24, 24]}>
             {categories.map((category, index) => (

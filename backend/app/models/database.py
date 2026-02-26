@@ -28,7 +28,6 @@ class Category(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
-    name_kz = Column(String, unique=True, index=True)
     description = Column(Text)
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -41,7 +40,6 @@ class Product(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
-    name_kz = Column(String, index=True)
     weight_packaging = Column(String)
     price = Column(Float)
     category_id = Column(Integer, ForeignKey("categories.id"))
@@ -57,11 +55,8 @@ class Vacancy(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     job_title = Column(String, index=True)
-    job_title_kz = Column(String, index=True)
     description = Column(Text)
-    description_kz = Column(Text)
     requirements = Column(Text)
-    requirements_kz = Column(Text)
     salary = Column(String)
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)

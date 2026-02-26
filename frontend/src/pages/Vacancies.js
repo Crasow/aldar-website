@@ -23,7 +23,7 @@ const Vacancies = () => {
       setVacancies(response.data);
     } catch (error) {
       console.error('Error fetching vacancies:', error);
-      message.error('Ошибка при загрузке вакансий');
+      message.error('Помилка під час завантаження вакансій');
     } finally {
       setLoading(false);
     }
@@ -39,7 +39,7 @@ const Vacancies = () => {
 
       await vacancyService.applyForVacancy(applicationData);
 
-      message.success('Ваша заявка успешно отправлена!');
+      message.success('Ваша заявка успішно надіслана!');
       form.resetFields();
       setSelectedVacancy(null);
     } catch (error) {
@@ -63,15 +63,15 @@ const Vacancies = () => {
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
           <Title level={2} style={{ color: '#2c3e50' }}>
-            Вакансии
+            Вакансії
           </Title>
           <Paragraph style={{ fontSize: '1.1rem', color: '#7f8c8d' }}>
-            Присоединяйтесь к команде профессионалов ALDAR ZS
+            Долучайтеся до команди професіоналів ALDAR ZS
           </Paragraph>
         </div>
 
         {vacancies.length === 0 ? (
-          <Empty description="На данный момент открытых вакансий нет" />
+          <Empty description="Наразі немає відкритих вакансій" />
         ) : (
           <Row gutter={[24, 24]}>
             <Col xs={24} lg={selectedVacancy ? 12 : 24}>
@@ -91,10 +91,10 @@ const Vacancies = () => {
                     key={vacancy.id}
                   >
                     <div className="vacancy-content">
-                      <Title level={4}>Описание:</Title>
+                      <Title level={4}>Опис:</Title>
                       <Paragraph>{vacancy.description}</Paragraph>
                       
-                      <Title level={4}>Требования:</Title>
+                      <Title level={4}>Вимоги:</Title>
                       <Paragraph>{vacancy.requirements}</Paragraph>
                       
                       <Button
@@ -102,7 +102,7 @@ const Vacancies = () => {
                         onClick={() => setSelectedVacancy(vacancy)}
                         style={{ marginTop: '20px' }}
                       >
-                        Откликнуться
+                        Відгукнутися
                       </Button>
                     </div>
                   </Panel>
@@ -112,7 +112,7 @@ const Vacancies = () => {
 
             {selectedVacancy && (
               <Col xs={24} lg={12}>
-                <Card title={`Отклик на вакансию: ${selectedVacancy.job_title}`}>
+                <Card title={`Відгук на вакансію: ${selectedVacancy.job_title}`}>
                   <Form
                     form={form}
                     layout="vertical"
@@ -120,8 +120,8 @@ const Vacancies = () => {
                   >
                     <Form.Item
                       name="name"
-                      label="Ваше имя"
-                      rules={[{ required: true, message: 'Пожалуйста, введите ваше имя' }]}
+                      label="Ваше імʼя"
+                      rules={[{ required: true, message: 'Будь ласка, введіть ваше імʼя' }]}
                     >
                       <Input
                         prefix={<UserOutlined />}
@@ -133,13 +133,13 @@ const Vacancies = () => {
                       name="phone"
                       label="Телефон"
                       rules={[
-                        { required: true, message: 'Пожалуйста, введите ваш телефон' },
-                        { pattern: /^\+?[\d\s()-]+$/, message: 'Введите корректный номер телефона' }
+                        { required: true, message: 'Будь ласка, введіть ваш телефон' },
+                        { pattern: /^\+?[\d\s()-]+$/, message: 'Введіть коректний номер телефону' }
                       ]}
                     >
                       <Input
                         prefix={<PhoneOutlined />}
-                        placeholder="+7 (777) 123-45-67"
+                        placeholder="+38 (067) 123-45-67"
                       />
                     </Form.Item>
 
@@ -147,8 +147,8 @@ const Vacancies = () => {
                       name="email"
                       label="Email"
                       rules={[
-                        { required: true, message: 'Пожалуйста, введите ваш email' },
-                        { type: 'email', message: 'Введите корректный email' }
+                        { required: true, message: 'Будь ласка, введіть ваш email' },
+                        { type: 'email', message: 'Введіть коректний email' }
                       ]}
                     >
                       <Input
@@ -159,7 +159,7 @@ const Vacancies = () => {
 
                     <Form.Item
                       name="resume_link"
-                      label="Ссылка на резюме (необязательно)"
+                      label="Посилання на резюме (необовʼязково)"
                     >
                       <Input
                         placeholder="https://hh.ru/resume/..."
@@ -174,7 +174,7 @@ const Vacancies = () => {
                         icon={<SendOutlined />}
                         block
                       >
-                        Отправить заявку
+                        Надіслати заявку
                       </Button>
                     </Form.Item>
 
@@ -186,7 +186,7 @@ const Vacancies = () => {
                         }}
                         block
                       >
-                        Отмена
+                        Скасувати
                       </Button>
                     </Form.Item>
                   </Form>
