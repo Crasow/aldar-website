@@ -1,11 +1,18 @@
+import os
+
 from fastapi import FastAPI, Depends, Response
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+
 from app.models.database import get_db, create_tables
 from app.routers import categories, products, vacancies, applications
 from app.services.pdf_service import generate_price_list
+from app.services.seed_data import seed_dev_data
 
 create_tables()
+
+if (os.getenv("ENVIRONMENT") or os.getenv("ENV") or "development").lower() != "production":
+    seed_dev_data()
 
 app = FastAPI(
     title="ALDAR ZS API", description="API для мясокомбината ALDAR ZS", version="1.0.0"
