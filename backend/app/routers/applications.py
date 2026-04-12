@@ -1,17 +1,18 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-from app.models.database import get_db, VacancyApplication
+from app.models.database import get_db, VacancyApplication, User
 from app.schemas.schemas import (
     VacancyApplication as VacancyApplicationSchema,
     VacancyApplicationCreate,
 )
+from app.services.auth_service import get_current_user
 
 router = APIRouter()
 
 
 @router.get("/", response_model=List[VacancyApplicationSchema])
-async def get_applications(db: Session = Depends(get_db)):
+async def get_applications(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     applications = db.query(VacancyApplication).all()
     return applications
 
@@ -28,7 +29,9 @@ async def create_application(
 
 
 @router.get("/{application_id}", response_model=VacancyApplicationSchema)
-async def get_application(application_id: int, db: Session = Depends(get_db)):
+async def get_application(
+    application_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
     application = (
         db.query(VacancyApplication)
         .filter(VacancyApplication.id == application_id)

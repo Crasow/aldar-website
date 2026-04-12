@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from app.models.database import get_db, create_tables
-from app.routers import categories, products, vacancies, applications
+from app.routers import categories, products, vacancies, applications, auth
 from app.services.pdf_service import generate_price_list
 from app.services.seed_data import seed_dev_data
 
@@ -26,6 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(categories.router, prefix="/api/categories", tags=["categories"])
 app.include_router(products.router, prefix="/api/products", tags=["products"])
 app.include_router(vacancies.router, prefix="/api/vacancies", tags=["vacancies"])

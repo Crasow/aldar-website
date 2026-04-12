@@ -3,7 +3,8 @@ from typing import List
 
 from sqlalchemy.orm import Session
 
-from app.models.database import Category, Product, Vacancy, SessionLocal
+from app.models.database import Category, Product, Vacancy, SessionLocal, User
+from app.services.auth_service import hash_password
 
 
 def _is_production() -> bool:
@@ -67,6 +68,16 @@ def _ensure_vacancies(db: Session, vacancies: List[dict]) -> None:
     db.commit()
 
 
+def _ensure_admin_user(db: Session, username: str = "admin", password: str = "admin") -> User:
+    user = db.query(User).filter(User.username == username).first()
+    if user is None:
+        user = User(username=username, hashed_password=hash_password(password))
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+    return user
+
+
 def seed_dev_data() -> None:
     """
     Populate database with demo data for local development.
@@ -79,6 +90,9 @@ def seed_dev_data() -> None:
 
     db = SessionLocal()
     try:
+        # Default admin user
+        _ensure_admin_user(db)
+
         # Categories
         kovbasy = _get_or_create_category(
             db,

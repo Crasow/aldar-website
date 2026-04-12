@@ -90,3 +90,17 @@ class VacancyApplication(VacancyApplicationBase):
 
     id: int
     created_at: datetime
+
+
+class UserCreate(BaseModel):
+    username: str
+    password: str
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
