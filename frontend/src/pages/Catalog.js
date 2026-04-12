@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Tabs, Button, Typography, Spin, Empty } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
+import catalogService from '../services/catalogService';
+
 const { Title, Paragraph } = Typography;
 const { TabPane } = Tabs;
-
-const API_BASE = process.env.REACT_APP_API_URL || '';
 
 const Catalog = () => {
   const [categories, setCategories] = useState([]);
@@ -19,15 +19,12 @@ const Catalog = () => {
   const fetchData = async () => {
     try {
       const [categoriesResponse, productsResponse] = await Promise.all([
-        fetch(`${API_BASE}/api/categories`),
-        fetch(`${API_BASE}/api/products`)
+        catalogService.getCategories(),
+        catalogService.getProducts()
       ]);
 
-      const categoriesData = await categoriesResponse.json();
-      const productsData = await productsResponse.json();
-
-      setCategories(categoriesData);
-      setProducts(productsData);
+      setCategories(categoriesResponse.data);
+      setProducts(productsResponse.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -35,16 +32,21 @@ const Catalog = () => {
     }
   };
 
-  const downloadPriceList = (categoryId = null) => {
-    const url = categoryId
-      ? `${API_BASE}/api/price-list/download?category_id=${categoryId}`
-      : `${API_BASE}/api/price-list/download`;
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'price_list.pdf';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+  const downloadPriceList = async (categoryId = null) => {
+    try {
+      const response = await catalogService.downloadPriceList(categoryId);
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'price_list.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading price list:', error);
+    }
   };
 
   const getProductsByCategory = (categoryId) => {
