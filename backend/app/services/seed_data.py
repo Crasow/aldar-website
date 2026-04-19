@@ -9,7 +9,7 @@ from app.services.auth_service import hash_password
 
 def _is_production() -> bool:
     env = os.getenv("ENVIRONMENT") or os.getenv("ENV") or "development"
-    return env.lower() == "production"
+    return env.lower() in ("production", "testing")
 
 
 def _get_or_create_category(db: Session, name: str, description: str = "") -> Category:
