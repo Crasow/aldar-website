@@ -85,32 +85,55 @@ npm install
 npm start
 ```
 
+## Тестирование
+
+### Backend (pytest)
+```bash
+cd backend
+pytest -v                    # Запустить все тесты
+pytest tests/test_auth.py   # Запустить тесты авторизации
+pytest tests/test_categories.py -v  # С подробным выводом
+```
+
+**Покрытие:** 30+ тестов для auth, CRUD, защиты эндпоинтов
+
+### Frontend (Jest)
+```bash
+cd frontend
+npm test
+```
+
 ## API Эндпоинты
 
+### Аутентификация
+- `POST /api/auth/login?username=X&password=Y` - Получить JWT токен
+- `POST /api/auth/register` - Создать нового админа (требует JWT)
+
 ### Categories
-- `GET /api/categories` - Получить все категории
-- `POST /api/categories` - Создать категорию
-- `PUT /api/categories/{id}` - Обновить категорию
-- `DELETE /api/categories/{id}` - Удалить категорию
+- `GET /api/categories` - Получить все категории (публичный)
+- `POST /api/categories` - Создать категорию (требует JWT)
+- `PUT /api/categories/{id}` - Обновить категорию (требует JWT)
+- `DELETE /api/categories/{id}` - Удалить категорию (требует JWT)
 
 ### Products
-- `GET /api/products` - Получить все товары (с фильтрацией по категории)
-- `POST /api/products` - Создать товар
-- `PUT /api/products/{id}` - Обновить товар
-- `DELETE /api/products/{id}` - Удалить товар
+- `GET /api/products` - Получить все товары (публичный, с фильтрацией по категории)
+- `POST /api/products` - Создать товар (требует JWT)
+- `PUT /api/products/{id}` - Обновить товар (требует JWT)
+- `DELETE /api/products/{id}` - Удалить товар (требует JWT)
 
 ### Vacancies
-- `GET /api/vacancies` - Получить все вакансии
-- `POST /api/vacancies` - Создать вакансию
-- `PUT /api/vacancies/{id}` - Обновить вакансию
-- `DELETE /api/vacancies/{id}` - Удалить вакансию
+- `GET /api/vacancies` - Получить все вакансии (публичный)
+- `POST /api/vacancies` - Создать вакансию (требует JWT)
+- `PUT /api/vacancies/{id}` - Обновить вакансию (требует JWT)
+- `DELETE /api/vacancies/{id}` - Удалить вакансию (требует JWT)
 
 ### Applications
-- `GET /api/applications` - Получить все заявки
-- `POST /api/applications` - Создать заявку
+- `GET /api/applications` - Получить все заявки (требует JWT, только админ)
+- `GET /api/applications/{id}` - Получить заявку (требует JWT)
+- `POST /api/applications` - Создать заявку (публичный - кандидаты подают без логина)
 
 ### Price List
-- `GET /api/price-list/download` - Скачать PDF прайс-лист
+- `GET /api/price-list/download` - Скачать PDF прайс-лист (публичный)
 
 ## Структура данных
 

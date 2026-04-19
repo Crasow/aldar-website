@@ -22,6 +22,9 @@ cd backend && ruff check .
 
 # Format
 cd backend && ruff format .
+
+# Run tests
+cd backend && pytest -v
 ```
 
 ### Frontend (in `frontend/`)
