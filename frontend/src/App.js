@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Catalog from './pages/Catalog';
 import Vacancies from './pages/Vacancies';
 import Contacts from './pages/Contacts';
+import Admin from './pages/Admin';
 import './App.css';
 
 const { Content } = Layout;
@@ -22,6 +23,7 @@ function App() {
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/vacancies" element={<Vacancies />} />
             <Route path="/contacts" element={<Contacts />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </Content>
         <Footer />

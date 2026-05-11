@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { HomeOutlined, ShoppingOutlined, TeamOutlined, PhoneOutlined } from '@ant-design/icons';
+import { HomeOutlined, ShoppingOutlined, TeamOutlined, PhoneOutlined, LockOutlined } from '@ant-design/icons';
 import './Navbar.css';
 
 const navItems = [
@@ -8,6 +8,7 @@ const navItems = [
   { key: '/catalog', icon: <ShoppingOutlined />, label: 'Продукція' },
   { key: '/vacancies', icon: <TeamOutlined />, label: 'Вакансії' },
   { key: '/contacts', icon: <PhoneOutlined />, label: 'Контакти' },
+  { key: '/admin', icon: <LockOutlined />, label: 'Адмін' },
 ];
 
 const Navbar = () => {
