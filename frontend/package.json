@@ -2,6 +2,7 @@
   "name": "aldar-web-frontend",
   "version": "1.0.0",
   "private": true,
+  "proxy": "http://backend:8000",
   "dependencies": {
     "@ant-design/icons": "^5.2.0",
     "antd": "^5.12.0",
