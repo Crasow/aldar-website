@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const CATEGORIES_URL = '/api/categories';
-const PRODUCTS_URL = '/api/products';
+const CATEGORIES_URL = '/api/categories/';
+const PRODUCTS_URL = '/api/products/';
 const PRICE_LIST_URL = '/api/price-list/download';
 
 const getCategories = () => axios.get(CATEGORIES_URL);
