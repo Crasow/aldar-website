@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Form, Input, Button, Card, Table, Modal, Spin, message, Layout, Row, Col } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 const { Header, Content } = Layout;
 
 const Admin = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState(localStorage.getItem('authToken'));
+  const { isLoggedIn, token, login, logout } = useContext(AuthContext);
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (token) {
-      setIsLoggedIn(true);
+    if (isLoggedIn && token) {
       fetchApplications();
     }
-  }, [token]);
+  }, [isLoggedIn, token]);
 
   const handleLogin = async (values) => {
     try {
@@ -34,9 +33,7 @@ const Admin = () => {
       );
 
       const newToken = response.data.access_token;
-      setToken(newToken);
-      localStorage.setItem('authToken', newToken);
-      setIsLoggedIn(true);
+      login(newToken);
       message.success('Успішно увійшли!');
       form.resetFields();
     } catch (error) {
@@ -71,9 +68,7 @@ const Admin = () => {
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    setToken(null);
-    localStorage.removeItem('authToken');
+    logout();
     setApplications([]);
     message.success('Ви вийшли');
   };

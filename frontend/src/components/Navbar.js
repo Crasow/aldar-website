@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { HomeOutlined, ShoppingOutlined, TeamOutlined, PhoneOutlined } from '@ant-design/icons';
+import { HomeOutlined, ShoppingOutlined, TeamOutlined, PhoneOutlined, LockOutlined } from '@ant-design/icons';
+import { AuthContext } from '../context/AuthContext';
 import './Navbar.css';
 
-const navItems = [
+const baseNavItems = [
   { key: '/', icon: <HomeOutlined />, label: 'Головна' },
   { key: '/catalog', icon: <ShoppingOutlined />, label: 'Продукція' },
   { key: '/vacancies', icon: <TeamOutlined />, label: 'Вакансії' },
   { key: '/contacts', icon: <PhoneOutlined />, label: 'Контакти' },
 ];
 
+const adminNavItem = { key: '/admin', icon: <LockOutlined />, label: 'Адмін' };
+
 const Navbar = () => {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
+  const navItems = isLoggedIn ? [...baseNavItems, adminNavItem] : baseNavItems;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
