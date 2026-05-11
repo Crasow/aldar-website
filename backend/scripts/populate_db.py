@@ -33,42 +33,42 @@ def populate_products(db: Session, categories):
     products = [
         Product(
             name="Свиная вырезка",
-            description="Премиум свежая свиная вырезка",
+            weight_packaging="0.5 кг",
             price=450.0,
             category_id=categories[0].id,
             is_active=True,
         ),
         Product(
             name="Говяжье филе",
-            description="Высокосортное говяжье филе",
+            weight_packaging="0.7 кг",
             price=580.0,
             category_id=categories[0].id,
             is_active=True,
         ),
         Product(
             name="Копченая грудинка",
-            description="Традиционно копченая свиная грудинка",
+            weight_packaging="0.4 кг",
             price=320.0,
             category_id=categories[1].id,
             is_active=True,
         ),
         Product(
             name="Любительская колбаса",
-            description="Домашняя колбаса по традиционному рецепту",
+            weight_packaging="0.3 кг",
             price=280.0,
             category_id=categories[2].id,
             is_active=True,
         ),
         Product(
             name="Печень куриная",
-            description="Свежая куриная печень",
+            weight_packaging="0.2 кг",
             price=120.0,
             category_id=categories[3].id,
             is_active=True,
         ),
         Product(
             name="Котлеты мясные",
-            description="Готовые мясные котлеты для быстрого приготовления",
+            weight_packaging="0.25 кг",
             price=200.0,
             category_id=categories[4].id,
             is_active=True,
@@ -85,35 +85,35 @@ def populate_vacancies(db: Session):
     """Create test vacancies."""
     vacancies = [
         Vacancy(
-            title="Мясник",
+            job_title="Мясник",
             description="Требуется опытный мясник для работы на производстве",
             requirements="Опыт работы не менее 3 лет, знание техники безопасности",
             salary="500-700 грн",
             is_active=True,
         ),
         Vacancy(
-            title="Технолог-мясник",
+            job_title="Технолог-мясник",
             description="Технолог для разработки новых рецептов и контроля качества",
             requirements="Диплом по специальности, опыт в пищевой промышленности",
             salary="800-1200 грн",
             is_active=True,
         ),
         Vacancy(
-            title="Водитель",
+            job_title="Водитель",
             description="Водитель для доставки продукции клиентам",
             requirements="Водительское удостоверение категории C, опыт вождения",
             salary="400-600 грн",
             is_active=True,
         ),
         Vacancy(
-            title="Менеджер по продажам",
+            job_title="Менеджер по продажам",
             description="Поиск и развитие новых клиентов",
             requirements="Опыт в B2B продажах, коммуникативность",
             salary="600-1000 грн + бонусы",
             is_active=True,
         ),
         Vacancy(
-            title="Упаковщик",
+            job_title="Упаковщик",
             description="Упаковка готовой продукции",
             requirements="Аккуратность, внимание к деталям",
             salary="350-450 грн",
@@ -121,7 +121,7 @@ def populate_vacancies(db: Session):
         ),
     ]
     for vacancy in vacancies:
-        existing = db.query(Vacancy).filter_by(title=vacancy.title).first()
+        existing = db.query(Vacancy).filter_by(job_title=vacancy.job_title).first()
         if not existing:
             db.add(vacancy)
     db.commit()
@@ -133,43 +133,38 @@ def populate_applications(db: Session, vacancies):
     applications = [
         VacancyApplication(
             vacancy_id=vacancies[0].id,
-            full_name="Иван Петренко",
+            name="Иван Петренко",
             email="ivan.petrenko@email.com",
             phone="+380501234567",
-            message="Я имею 5 лет опыта работы мясником. Готов к сотрудничеству.",
-            is_active=True,
+            resume_link="https://example.com/ivan-resume.pdf",
         ),
         VacancyApplication(
             vacancy_id=vacancies[0].id,
-            full_name="Сергей Коваленко",
+            name="Сергей Коваленко",
             email="sergey.kovalenko@email.com",
             phone="+380502345678",
-            message="Интересует должность мясника. Готов пройти собеседование.",
-            is_active=True,
+            resume_link="https://example.com/sergey-resume.pdf",
         ),
         VacancyApplication(
             vacancy_id=vacancies[1].id,
-            full_name="Александр Климов",
+            name="Александр Климов",
             email="alex.klimov@email.com",
             phone="+380503456789",
-            message="Технолог с 7 годами опыта в мясной промышленности.",
-            is_active=True,
+            resume_link="https://example.com/alex-resume.pdf",
         ),
         VacancyApplication(
             vacancy_id=vacancies[2].id,
-            full_name="Виктор Шевченко",
+            name="Виктор Шевченко",
             email="viktor.shevchenko@email.com",
             phone="+380504567890",
-            message="Водитель с опытом доставки. Знаю город.",
-            is_active=True,
+            resume_link="https://example.com/viktor-resume.pdf",
         ),
         VacancyApplication(
             vacancy_id=vacancies[3].id,
-            full_name="Оксана Лисак",
+            name="Оксана Лисак",
             email="oksana.lisak@email.com",
             phone="+380505678901",
-            message="Менеджер по продажам. Ищу работу на постоянной основе.",
-            is_active=True,
+            resume_link="https://example.com/oksana-resume.pdf",
         ),
     ]
     for app in applications:
