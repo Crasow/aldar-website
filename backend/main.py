@@ -15,12 +15,12 @@ if (os.getenv("ENVIRONMENT") or os.getenv("ENV") or "development").lower() != "p
     seed_dev_data()
 
 app = FastAPI(
-    title="ALDAR ZS API", description="API для мясокомбината ALDAR ZS", version="1.0.0"
+    title="ALDAR ZS API", description="API для мясокомбината ALDAR ZS", version="1.0.0", redirect_slashes=False
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000", "http://localhost:3001"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
