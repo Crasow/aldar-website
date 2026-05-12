@@ -8,7 +8,8 @@
       "WebFetch(domain:nonsatirical-callan-closer.ngrok-free.dev)",
       "Bash(git add *)",
       "Bash(git commit -m 'Fix Admin.js eslint errors: remove unused Modal, fix setIsLoggedIn reference *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git commit -m 'Wrap fetchApplications in useCallback to fix dependency warning *)"
     ]
   }
 }

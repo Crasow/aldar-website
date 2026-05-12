@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { Form, Input, Button, Card, Table, Spin, message, Layout, Row, Col } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -12,7 +12,7 @@ const Admin = () => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
-  const fetchApplications = async () => {
+  const fetchApplications = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get('/api/applications/', {
@@ -33,13 +33,13 @@ const Admin = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token, logout]);
 
   useEffect(() => {
     if (isLoggedIn && token) {
       fetchApplications();
     }
-  }, [isLoggedIn, token, logout]);
+  }, [isLoggedIn, token, fetchApplications]);
 
   const handleLogin = async (values) => {
     try {
