@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Button, Typography, Spin, Empty, Collapse, Form, Input, message } from 'antd';
+import { Row, Col, Card, Button, Typography, Spin, Empty, Collapse, Form, Input, message, Layout } from 'antd';
 import { UserOutlined, PhoneOutlined, MailOutlined, SendOutlined } from '@ant-design/icons';
 import vacancyService from '../services/vacancyService';
+
+const { Content } = Layout;
 
 const { Title, Paragraph } = Typography;
 const { Panel } = Collapse;
@@ -52,14 +54,14 @@ const Vacancies = () => {
 
   if (loading) {
     return (
-      <div style={{ textAlign: 'center', padding: '100px 0' }}>
+      <Content style={{ textAlign: 'center', padding: '100px 0' }}>
         <Spin size="large" />
-      </div>
+      </Content>
     );
   }
 
   return (
-    <div style={{ padding: '40px 0' }}>
+    <Content style={{ padding: '40px 0', flex: 1 }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
           <Title level={2} style={{ color: '#2c3e50' }}>
@@ -196,7 +198,7 @@ const Vacancies = () => {
           </Row>
         )}
       </div>
-    </div>
+    </Content>
   );
 };
 
