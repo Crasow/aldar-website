@@ -5,7 +5,10 @@
       "Bash(curl:*)",
       "Bash(mkdir:*)",
       "Bash(PYTHONIOENCODING=utf-8 python:*)",
-      "WebFetch(domain:nonsatirical-callan-closer.ngrok-free.dev)"
+      "WebFetch(domain:nonsatirical-callan-closer.ngrok-free.dev)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Fix Admin.js eslint errors: remove unused Modal, fix setIsLoggedIn reference *)",
+      "Bash(git push *)"
     ]
   }
 }

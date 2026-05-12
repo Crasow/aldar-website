@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Form, Input, Button, Card, Table, Modal, Spin, message, Layout, Row, Col } from 'antd';
+import { Form, Input, Button, Card, Table, Spin, message, Layout, Row, Col } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
@@ -12,11 +12,34 @@ const Admin = () => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
+  const fetchApplications = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('/api/applications/', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setApplications(response.data);
+    } catch (error) {
+      console.error('Error fetching applications:', error);
+      if (error.response?.status === 401) {
+        logout();
+        localStorage.removeItem('authToken');
+        message.error('Сесія закінчилась. Будь ласка, увійдіть знову');
+      } else {
+        message.error('Помилка при завантаженні заявок');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (isLoggedIn && token) {
       fetchApplications();
     }
-  }, [isLoggedIn, token]);
+  }, [isLoggedIn, token, logout]);
 
   const handleLogin = async (values) => {
     try {
@@ -44,28 +67,6 @@ const Admin = () => {
     }
   };
 
-  const fetchApplications = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get('/api/applications/', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setApplications(response.data);
-    } catch (error) {
-      console.error('Error fetching applications:', error);
-      if (error.response?.status === 401) {
-        setIsLoggedIn(false);
-        localStorage.removeItem('authToken');
-        message.error('Сесія закінчилась. Будь ласка, увійдіть знову');
-      } else {
-        message.error('Помилка при завантаженні заявок');
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleLogout = () => {
     logout();
