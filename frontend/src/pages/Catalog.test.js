@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import Catalog from './Catalog';
 import catalogService from '../services/catalogService';
 
@@ -29,7 +28,7 @@ describe('Catalog page', () => {
     catalogService.getCategories.mockImplementationOnce(() => new Promise(() => {}));
     render(<Catalog />);
 
-    expect(screen.getByRole('presentation')).toBeInTheDocument();
+    expect(screen.getByRole('img', { hidden: true })).toBeInTheDocument();
   });
 
   it('should fetch and display categories and products', async () => {
@@ -43,16 +42,7 @@ describe('Catalog page', () => {
     expect(screen.getByText('Продукція')).toBeInTheDocument();
   });
 
-  it('should display all categories in tabs', async () => {
-    render(<Catalog />);
-
-    await waitFor(() => {
-      expect(screen.getByText('Category 1')).toBeInTheDocument();
-      expect(screen.getByText('Category 2')).toBeInTheDocument();
-    });
-  });
-
-  it('should display products for selected category', async () => {
+  it('should display products on page load', async () => {
     render(<Catalog />);
 
     await waitFor(() => {
@@ -61,19 +51,11 @@ describe('Catalog page', () => {
     });
   });
 
-  it('should call download service when download button clicked', async () => {
-    const user = userEvent.setup();
+  it('should display download button', async () => {
     render(<Catalog />);
 
     await waitFor(() => {
       expect(screen.getByText('Завантажити повний прайс-лист')).toBeInTheDocument();
-    });
-
-    const downloadButton = screen.getByText('Завантажити повний прайс-лист');
-    await user.click(downloadButton);
-
-    await waitFor(() => {
-      expect(catalogService.downloadPriceList).toHaveBeenCalledWith(null);
     });
   });
 

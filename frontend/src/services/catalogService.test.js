@@ -15,7 +15,7 @@ describe('catalogService', () => {
 
       const result = await catalogService.getCategories();
 
-      expect(axios.get).toHaveBeenCalledWith('/api/categories');
+      expect(axios.get).toHaveBeenCalledWith('/api/categories/');
       expect(result.data).toEqual(mockCategories);
     });
 
@@ -34,7 +34,7 @@ describe('catalogService', () => {
 
       const result = await catalogService.getProducts();
 
-      expect(axios.get).toHaveBeenCalledWith('/api/products');
+      expect(axios.get).toHaveBeenCalledWith('/api/products/');
       expect(result.data).toEqual(mockProducts);
     });
 

@@ -36,7 +36,7 @@ describe('Vacancies page', () => {
     vacancyService.getVacancies.mockImplementationOnce(() => new Promise(() => {}));
     render(<Vacancies />);
 
-    expect(screen.getByRole('presentation')).toBeInTheDocument();
+    expect(screen.getByRole('img', { hidden: true })).toBeInTheDocument();
   });
 
   it('should fetch and display vacancies', async () => {

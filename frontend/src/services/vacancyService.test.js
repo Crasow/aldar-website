@@ -41,7 +41,7 @@ describe('vacancyService', () => {
 
       const result = await vacancyService.applyForVacancy(applicationData);
 
-      expect(axios.post).toHaveBeenCalledWith('/api/applications', applicationData);
+      expect(axios.post).toHaveBeenCalledWith('/api/applications/', applicationData);
       expect(result.data).toEqual(mockResponse);
     });
 

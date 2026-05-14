@@ -2,14 +2,17 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from './Navbar';
+import { AuthProvider } from '../context/AuthContext';
 
 describe('Navbar component', () => {
   const renderNavbar = (initialPath = '/') => {
     window.history.pushState({}, 'Test page', initialPath);
     return render(
-      <BrowserRouter>
-        <Navbar />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Navbar />
+        </BrowserRouter>
+      </AuthProvider>
     );
   };
 
