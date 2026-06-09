@@ -14,7 +14,7 @@ from app.models.database import Product, Category
 
 def _register_fonts() -> tuple[str, str]:
     """Register DejaVu fonts and return (regular_name, bold_name)."""
-    _fonts_dir = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "fonts"))
+    _fonts_dir = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "assets", "fonts"))
 
     regular_candidates = [
         (os.path.join(_fonts_dir, "DejaVuSans.ttf"), "DejaVuSans"),
