@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
-import { Form, Input, Button, Card, Table, Spin, message, Layout, Row, Col } from 'antd';
-import { LogoutOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Card, Table, Spin, message, Layout, Row, Col, Popconfirm } from 'antd';
+import { LogoutOutlined, DeleteOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
@@ -74,6 +74,27 @@ const Admin = () => {
     message.success('Ви вийшли');
   };
 
+  const handleDelete = async (applicationId) => {
+    try {
+      await axios.delete(`/api/applications/${applicationId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setApplications(applications.filter(app => app.id !== applicationId));
+      message.success('Заявку видалено');
+    } catch (error) {
+      console.error('Error deleting application:', error);
+      if (error.response?.status === 401) {
+        logout();
+        localStorage.removeItem('authToken');
+        message.error('Сесія закінчилась. Будь ласка, увійдіть знову');
+      } else {
+        message.error('Помилка при видаленні заявки');
+      }
+    }
+  };
+
   const columns = [
     {
       title: 'ID',
@@ -115,6 +136,27 @@ const Admin = () => {
       key: 'created_at',
       render: (text) => new Date(text).toLocaleDateString('uk-UA'),
       sorter: (a, b) => new Date(a.created_at) - new Date(b.created_at),
+    },
+    {
+      title: 'Дії',
+      key: 'actions',
+      width: 100,
+      render: (_, record) => (
+        <Popconfirm
+          title="Видалити заявку?"
+          description="Ця дія не може бути скасована"
+          onConfirm={() => handleDelete(record.id)}
+          okText="Так"
+          cancelText="Ні"
+        >
+          <Button
+            type="text"
+            danger
+            icon={<DeleteOutlined />}
+            size="small"
+          />
+        </Popconfirm>
+      ),
     },
   ];
 

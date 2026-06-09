@@ -40,3 +40,19 @@ async def get_application(
     if not application:
         raise HTTPException(status_code=404, detail="Application not found")
     return application
+
+
+@router.delete("/{application_id}")
+async def delete_application(
+    application_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
+    application = (
+        db.query(VacancyApplication)
+        .filter(VacancyApplication.id == application_id)
+        .first()
+    )
+    if not application:
+        raise HTTPException(status_code=404, detail="Application not found")
+    db.delete(application)
+    db.commit()
+    return {"message": "Application deleted successfully"}
